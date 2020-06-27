@@ -20,7 +20,11 @@ public class Application {
 						.path("/get")
 						.filters(f -> f.addRequestHeader("Hello", "World"))
 						.uri("http://httpbin.org:80"))
-				.build();
+				.route(p -> p
+						.host("*.hystrix.com")
+						.filters(f -> f.hystrix(config -> config.setName("mycmd")))
+						.uri("http://httpbin.org:80")).
+						build();
 	}
 
 }
