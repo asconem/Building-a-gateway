@@ -22,9 +22,11 @@ public class Application {
 						.uri("http://httpbin.org:80"))
 				.route(p -> p
 						.host("*.hystrix.com")
-						.filters(f -> f.hystrix(config -> config.setName("mycmd")))
-						.uri("http://httpbin.org:80")).
-						build();
+						.filters(f -> f.hystrix(config -> config
+								.setName("mycmd")
+								.setFallbackUri("forward:/fallback")))
+						.uri("http://httpbin.org:80"))
+				.build();
 	}
 
 }
